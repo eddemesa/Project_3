@@ -14,7 +14,7 @@ def extract_unique_ssid_data(input_file_path, output_file_path):
         return
 
     # Check if required columns exist
-    required_columns = ['SSID', 'BSSID', 'Capabilities', 'frequency']
+    required_columns = ['SSID', 'BSSID', 'Capabilities']
     for column in required_columns:
         if column not in data.columns:
             print(f"Error: '{column}' column not found in the CSV file.")
@@ -26,9 +26,8 @@ def extract_unique_ssid_data(input_file_path, output_file_path):
     # Save the unique data to a new CSV file
     unique_data.to_csv(output_file_path, index=False)
     print(
-        f"Unique SSIDs along with BSSID, Capabilities, "
-        f"and frequency have been "
-        f"extracted and saved to: {output_file_path}")
+        f"Unique SSIDs along with BSSID, and Capabilities, "
+        f"have been extracted and saved to: {output_file_path}")
 
 
 # Main function

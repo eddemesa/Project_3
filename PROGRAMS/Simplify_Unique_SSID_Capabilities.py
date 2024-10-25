@@ -19,15 +19,15 @@ def read_capabilities(filename):
         reader = csv.DictReader(file)
         for row in reader:
             # Create a mapping from capabilities to their codes
-            capabilities_map[row['Capabilities']] = row['Capalilities_code']
+            capabilities_map[row['Capabilities']] = row['Capabilities_Code']
     return capabilities_map
 
 
 def process_ssid_data(ssid_file, capabilities_map, output_file):
-    with open(ssid_file, mode='r', newline='') as ssid_csv:
+    with (open(ssid_file, mode='r', newline='') as ssid_csv):
         ssid_reader = csv.DictReader(ssid_csv)
         with open(output_file, mode='w', newline='') as output_csv:
-            fieldnames = ['SSID', 'BSSID', 'Capabilities_Code']
+            fieldnames = ['SSID', 'BSSID', 'Capabilities_Code_Combined']
             writer = csv.DictWriter(output_csv, fieldnames=fieldnames)
             writer.writeheader()
 
@@ -35,15 +35,20 @@ def process_ssid_data(ssid_file, capabilities_map, output_file):
                 # Extract capabilities from the SSID data
                 capabilities = row["Capabilities"].strip('[]').split('][')
                 # Map the capabilities to their codes
-                capabilities_codes = [capabilities_map.get(capability, "") for capability in capabilities]
+                capabilities_codes = [
+                    capabilities_map.get(capability, "")
+                    for capability in capabilities
+                    ]
                 # Join the codes with a comma
-                capabilities_code_combined = ','.join(filter(None, capabilities_codes))
+                Capabilities_Code_Combined = ','.join(
+                    filter(None, capabilities_codes)
+                    )
 
                 # Write the new row to the output CSV
                 writer.writerow({
                     'SSID': row["SSID"],
                     'BSSID': row["BSSID"],
-                    'Capabilities_Code': capabilities_code_combined
+                    'Capabilities_Code_Combined': Capabilities_Code_Combined
                 })
 
 
@@ -51,9 +56,10 @@ if __name__ == "__main__":
     capabilities_file = \
         '/Users/eddemesa/PythonFile/project_3/OUTPUT/unique_capabilities.csv'
     ssid_data_file = \
-        '/Users/eddemesa/PythonFile/project_3/OUTPUT/unique_ssid_data.csv'
+        '/Users/eddemesa/PythonFile/project_3/OUTPUT/filtered_ssid_data.csv'
     output_csv_file = \
-        '/Users/eddemesa/PythonFile/project_3/OUTPUT/combined_SSID_Capabilities.csv'
+        ('/Users/eddemesa/PythonFile/project_3/OUTPUT/'
+         'combined_SSID_Capabilities.csv')
 
     # Read capabilities and process SSID data
     capabilities = read_capabilities(capabilities_file)

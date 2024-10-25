@@ -11,7 +11,8 @@ ssid_levels = {}
 
 # Read from the input CSV file
 with open(input_file_path, mode='r') as infile:
-    reader = csv.DictReader(infile)  # Read the CSV into a dictionary
+    # Read the CSV into a dictionary
+    reader = csv.DictReader(infile)
     for row in reader:
         ssid = row['SSID']
         level = int(row['level'])  # Convert level to integer
@@ -26,15 +27,18 @@ with open(input_file_path, mode='r') as infile:
     averaged_levels = []
     for ssid, levels in ssid_levels.items():
         average_level = sum(levels) / len(levels)
-        averaged_levels.append({'SSID': ssid, 'Average Level': average_level})
+        averaged_levels.append({'SSID': ssid,
+                                'Average Level': average_level})
 
     # Write the averaged levels to the output CSV file
     with open(output_file_path, mode='w', newline='') as outfile:
 
         # Define the output columns
-        writer = csv.DictWriter(outfile, fieldnames=['SSID', 'Average Level'])
+        writer = csv.DictWriter(outfile, fieldnames=['SSID',
+                                                     'Average Level'])
         writer.writeheader()  # Write the header
         for entry in averaged_levels:
-            writer.writerow(entry)  # Write each averaged entry
+            # Write each averaged entry
+            writer.writerow(entry)
 
 print(f"CSV file '{output_file_path}' created with average levels.")

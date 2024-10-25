@@ -1,4 +1,3 @@
-
 import pandas as pd
 import json
 import os
@@ -61,7 +60,7 @@ def extract_data_from_txt_files(input_directory, output_file):
                                                 date_object = (
                                                     datetime.strptime(
                                                         date_string,
-                                                        "%B %Ω %Y"
+                                                        "%B %d, %Y"
                                                     ))
                                                 formatted_date = (
                                                     date_object.strftime(
@@ -71,8 +70,9 @@ def extract_data_from_txt_files(input_directory, output_file):
                                                 print(
                                                     f"Invalid date format:"
                                                     f" {date_string} "
-                                                    f"in file: {filename}. "
-                                                    f"Error: {ve}")
+                                                    f"in file: {
+                                                        filename
+                                                        }. Error: {ve}")
                                                 continue
 
                                             # Original time string
@@ -120,7 +120,7 @@ def extract_data_from_txt_files(input_directory, output_file):
                                                     time_data
                                             }
                                             records.append(record)
-                                            print(record)
+                                            # print(record)
                                         except json.JSONDecodeError as err1:
                                             print(f"Invalid time format: "
                                                   f"{time_str} "

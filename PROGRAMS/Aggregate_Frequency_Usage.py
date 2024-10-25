@@ -7,7 +7,8 @@ input_file_path = \
 output_file_path = \
     "/Users/eddemesa/PythonFile/project_3/OUTPUT/Frequency_usage_aggregate.csv"
 
-# Use a dictionary to store the count of SSIDs for each frequency
+# Use a dictionary to store the
+# count of SSIDs for each frequency
 frequency_count = defaultdict(int)
 
 # Read from the input CSV file
