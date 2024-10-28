@@ -5,7 +5,7 @@ from collections import defaultdict
 input_file_path = \
     "/Users/eddemesa/PythonFile/project_3/OUTPUT/combined_wifi_data.csv"
 output_file_path = \
-    "/Users/eddemesa/PythonFile/project_3/OUTPUT/Frequency_usage_aggregate.csv"
+    "/Users/eddemesa/PythonFile/project_3/OUTPUT/Aggregate_Frequency_Usage.csv"
 
 # Use a dictionary to store the
 # count of SSIDs for each frequency
@@ -23,7 +23,7 @@ with open(input_file_path, mode='r') as infile:
 
         # Prepare the data for writing to the output CSV file
         aggregated_data = [{'Frequency': freq,
-                           'Total SSIDs': count} for freq,
+                           'Total_SSID': count} for freq,
                            count in frequency_count.items()]
 
     # Write the aggregated frequency usage to the output CSV file
@@ -31,7 +31,7 @@ with open(input_file_path, mode='r') as infile:
         # Define the output columns
         writer = csv.DictWriter(outfile, fieldnames=[
                                 'Frequency',
-                                'Total SSIDs']
+                                'Total_SSID']
                                 )
         # Write the header
         writer.writeheader()
@@ -40,4 +40,4 @@ with open(input_file_path, mode='r') as infile:
             writer.writerow(entry)
 
 print(f"CSV file '{output_file_path}' "
-      f"created with frequency usage aggregate.")
+      f"created with Aggregate Frequency Usage.")

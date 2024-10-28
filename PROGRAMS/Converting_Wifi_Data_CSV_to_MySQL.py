@@ -1,5 +1,6 @@
 import csv
 import mysql.connector
+from datetime import datetime
 
 # MySQL connection parameters
 mysql_host = 'localhost'  # Change if your MySQL server is hosted elsewhere
@@ -48,15 +49,31 @@ with open(csv_file_path, mode='r', encoding='ISO-8859-1') as csv_file:
         # Select only the desired columns
         ssid = row['SSID']
         level = row['level']
-        date = row['Date']
+
+        # Assuming the column is named 'Date'
+        original_date = row['Date']
+        original_date = original_date.strip()  # Remove any leading/trailing whitespace
+
+        # Convert the string to a datetime object
+        date_obj1 = datetime.strptime(original_date, "%m/%d/%Y")
+
+        try:
+            formatted_date = date_obj1.strftime("%Y/%m/%d")
+            # Output the formatted date
+            # print(formatted_date)
+            date = formatted_date
+        except ValueError:
+            # print(f"Date format error for row: {row}")
+            date = row['Date']
+
         time = row['Time']
 
-    # Insert data into the table
-    insert_query = '''
-    INSERT INTO Wifi_data_Transactions (SSID, level, Date, Time)
-    VALUES (%s, %s, %s, %s)
-    '''
-    cursor.execute(insert_query, (ssid, level, date, time))
+        # Insert data into the table
+        insert_query = '''
+        INSERT INTO Wifi_data_Transactions (SSID, level, date, Time)
+            VALUES (%s, %s, %s, %s)
+            '''
+        cursor.execute(insert_query, (ssid, level, date, time))
 
 # Commit the changes
 connection.commit()
