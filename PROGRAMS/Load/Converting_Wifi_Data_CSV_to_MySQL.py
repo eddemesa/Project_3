@@ -52,7 +52,8 @@ with open(csv_file_path, mode='r', encoding='ISO-8859-1') as csv_file:
 
         # Assuming the column is named 'Date'
         original_date = row['Date']
-        original_date = original_date.strip()  # Remove any leading/trailing whitespace
+        # Remove any leading/trailing whitespace
+        original_date = original_date.strip()
 
         # Convert the string to a datetime object
         date_obj1 = datetime.strptime(original_date, "%m/%d/%Y")
